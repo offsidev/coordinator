@@ -15,18 +15,18 @@ describe('Test Coordinator Module', function () {
 				func: function () {}
 			},
 
-			ev = 'EventX';
+			eventX = 'EventX',
+			eventY = 'EventY';
 
 		it('should fail if supplied incorrect arguments');
 
 		it('should add supplied function to list of subscribers for supplied event', function () {
 			
-			Coordinator.subscribe(ev, moduleA.func, moduleA);
+			Coordinator.subscribe(eventX, moduleA.func, moduleA);
+			Coordinator.subscribe(eventX, moduleB.func, moduleB);
 
-			expect(Coordinator._getSubscribers(ev)).to.deep.include({
-				fn: moduleA.func,
-				scp: moduleA
-			});
+			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleA.func, scp: moduleA });
+			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleB.func, scp: moduleB });
 
 		});
 
