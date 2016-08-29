@@ -14,6 +14,31 @@
 
 })(this, function () {
 
-	//
+	'use strict';
+
+	var eventCenter = {};
+
+	var _getSubscribers = function (ev) {
+		if ( typeof ev == 'undefined' ) {
+			return [];
+		}
+		
+		return eventCenter['ev'];
+	};
+
+	var subscribe = function (ev, fn, scope) {
+		if ( !eventCenter['ev'] )
+			eventCenter['ev'] = [];
+
+		eventCenter['ev'].push({
+			fn: fn,
+			scp: scope
+		});
+	};
+
+	return {
+		_getSubscribers: _getSubscribers,
+		subscribe: subscribe,
+	};
 
 });
