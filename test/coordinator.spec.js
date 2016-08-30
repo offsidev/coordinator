@@ -18,7 +18,7 @@ describe('Test Coordinator Module', function () {
 			eventX = 'EventX',
 			eventY = 'EventY';
 
-		it('should add supplied function to list of subscribers for supplied event', function () {
+		it('should add supplied function to list of subscribers for supplied event.', function () {
 			
 			Coordinator.subscribe(eventX, moduleA.func, moduleA);
 			Coordinator.subscribe(eventX, moduleB.func, moduleB);
@@ -28,7 +28,7 @@ describe('Test Coordinator Module', function () {
 
 		});
 
-		it('should fail if supplied malformed arguments', function () {
+		it('should fail if supplied malformed arguments.', function () {
 			// console.log( Coordinator.subscribe('string1', function () {}) );
 			expect(Coordinator.subscribe(function() {})).to.not.be.ok;
 			
@@ -56,6 +56,7 @@ describe('Test Coordinator Module', function () {
 				prop: 'C',
 				func: function () {}
 			},
+			dummyFunc = sinon.spy(),
 			eventX = 'EventX',
 			eventY = 'EventY',
 
@@ -70,7 +71,11 @@ describe('Test Coordinator Module', function () {
 			{ fn: moduleB.func, scp: moduleB }
 		]);
 
-		it('should call the subscribed functions with the data broadcasted', function () {
+		Coordinator._setSubscribers(eventY, [
+			{ fn: dummyFunc, scp: null}
+		]);
+
+		it('should call the subscribed functions with the data broadcasted.', function () {
 			Coordinator.broadcast(eventX, dataObj);
 			
 			expect(moduleA.func.calledOnce).to.be.true;
@@ -78,15 +83,25 @@ describe('Test Coordinator Module', function () {
 			expect(moduleB.func.calledOnce).to.be.true;
 			expect(moduleB.func.calledWithExactly(dataObj)).to.be.true;
 			expect(moduleC.func.calledOnce).to.be.false;
+
+			Coordinator.broadcast(eventX);
+			expect(moduleA.func.lastCall.args.length).to.equal(0);
 		});
 
-		it('should call the subscribed functions within the appropriate scope');
+		it('should call the subscribed functions on the registered scope.', function () {
+			Coordinator.broadcast(eventX, dataObj);
+			expect(moduleA.func.calledOn(moduleA)).to.be.true;
+			expect(moduleB.func.calledOn(moduleB)).to.be.true;
+
+			Coordinator.broadcast(eventY);
+			expect(dummyFunc.calledOn(null)).to.be.true;
+		});
 
 	});
 
 	describe('#unsubscribe', function () {
 		
-		it('should remove the passed in function from the subscriber list of supplied event');
+		it('should remove the passed in function from the subscriber list of supplied event.');
 
 	});
 

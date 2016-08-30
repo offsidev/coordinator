@@ -52,7 +52,10 @@
 	var broadcast = function (ev, data) {
 		var subscribers = _getSubscribers(ev);
 		for ( var i = 0; i < subscribers.length; i++ ) {
-			subscribers[i]['fn'].apply(subscribers[i]['scp'], [data]);
+			if ( typeof data == 'undefined' )
+				subscribers[i]['fn'].apply(subscribers[i]['scp']);
+			else
+				subscribers[i]['fn'].apply(subscribers[i]['scp'], [data]);
 		}
 	};
 
