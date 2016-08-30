@@ -19,10 +19,13 @@
 	var eventCenter = {};
 
 	var _getSubscribers = function (ev) {
-		if ( typeof ev == 'undefined' ) {
-			return [];
-		}	
 		return eventCenter[ev] || [];
+	};
+
+	var _setSubscribers = function (ev, subscribers) {
+		if ( !subscribers instanceof Array )
+			return false;
+		eventCenter[ev] = subscribers;
 	};
 
 	var subscribe = function (ev, fn, scope) {
@@ -39,16 +42,25 @@
 
 		if ( !eventCenter[ev] )
 			eventCenter[ev] = [];
-		
+
 		return eventCenter[ev].push({
 			fn: fn,
 			scp: scope
 		});
 	};
 
+	var broadcast = function (ev, data) {
+		var subscribers = _getSubscribers(ev);
+		for ( var i = 0; i < subscribers.length; i++ ) {
+			subscribers[i]['fn'].apply(subscribers[i]['scp'], [data]);
+		}
+	};
+
 	return {
 		_getSubscribers: _getSubscribers,
+		_setSubscribers: _setSubscribers,
 		subscribe: subscribe,
+		broadcast: broadcast
 	};
 
 });

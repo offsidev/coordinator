@@ -1,4 +1,6 @@
 var expect = require('chai').expect,
+	sinon = require('sinon'),
+
 	Coordinator = require('../src/coordinator');
 
 describe('Test Coordinator Module', function () {
@@ -9,12 +11,10 @@ describe('Test Coordinator Module', function () {
 				prop: 'A',
 				func: function () {}
 			},
-
 			moduleB = {
 				prop: 'B',
 				func: function () {}
 			},
-
 			eventX = 'EventX',
 			eventY = 'EventY';
 
@@ -40,13 +40,46 @@ describe('Test Coordinator Module', function () {
 
 		});
 
-		it('should behave properly if the scope argument not supplied');
-
 	});
 
 	describe('#broadcast', function () {
-		
-		it('should call the subscribed functions with the data broadcasted');
+
+		var moduleA = {
+				prop: 'A',
+				func: function () {}
+			},
+			moduleB = {
+				prop: 'B',
+				func: function () {}
+			},
+			moduleC = {
+				prop: 'C',
+				func: function () {}
+			},
+			eventX = 'EventX',
+			eventY = 'EventY',
+
+			dataObj = { data: 'value' };
+
+		sinon.spy(moduleA, 'func');
+		sinon.spy(moduleB, 'func');
+		sinon.spy(moduleC, 'func');
+
+		Coordinator._setSubscribers(eventX, [
+			{ fn: moduleA.func, scp: moduleA },
+			{ fn: moduleB.func, scp: moduleB }
+		]);
+
+		it('should call the subscribed functions with the data broadcasted', function () {
+			Coordinator.broadcast(eventX, dataObj);
+			
+			expect(moduleA.func.calledOnce).to.be.true;
+			expect(moduleA.func.calledWithExactly(dataObj)).to.be.true;
+			expect(moduleB.func.calledOnce).to.be.true;
+			expect(moduleB.func.calledWithExactly(dataObj)).to.be.true;
+			expect(moduleC.func.calledOnce).to.be.false;
+		});
+
 		it('should call the subscribed functions within the appropriate scope');
 
 	});
