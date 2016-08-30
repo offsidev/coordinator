@@ -5,18 +5,24 @@ var expect = require('chai').expect,
 
 describe('Test Coordinator Module', function () {
 
-	describe('#subscribe', function () {
+	var moduleA = {
+			prop: 'A',
+			func: function () {}
+		},
+		moduleB = {
+			prop: 'B',
+			func: function () {}
+		},
+		moduleC = {
+			prop: 'C',
+			func: function () {}
+		},
+		eventX = 'EventX',
+		eventY = 'EventY',
 
-		var moduleA = {
-				prop: 'A',
-				func: function () {}
-			},
-			moduleB = {
-				prop: 'B',
-				func: function () {}
-			},
-			eventX = 'EventX',
-			eventY = 'EventY';
+		dataObj = { data: 'value' };
+
+	describe('#subscribe', function () {
 
 		it('should add supplied function to list of subscribers for supplied event.', function () {
 			
@@ -29,7 +35,6 @@ describe('Test Coordinator Module', function () {
 		});
 
 		it('should fail if supplied malformed arguments.', function () {
-			// console.log( Coordinator.subscribe('string1', function () {}) );
 			expect(Coordinator.subscribe(function() {})).to.not.be.ok;
 			
 			expect(Coordinator.subscribe(2, function() {})).to.not.be.ok;
@@ -44,27 +49,10 @@ describe('Test Coordinator Module', function () {
 
 	describe('#broadcast', function () {
 
-		var moduleA = {
-				prop: 'A',
-				func: function () {}
-			},
-			moduleB = {
-				prop: 'B',
-				func: function () {}
-			},
-			moduleC = {
-				prop: 'C',
-				func: function () {}
-			},
-			dummyFunc = sinon.spy(),
-			eventX = 'EventX',
-			eventY = 'EventY',
-
-			dataObj = { data: 'value' };
-
 		sinon.spy(moduleA, 'func');
 		sinon.spy(moduleB, 'func');
 		sinon.spy(moduleC, 'func');
+		dummyFunc = sinon.spy();
 
 		Coordinator._setSubscribers(eventX, [
 			{ fn: moduleA.func, scp: moduleA },
@@ -78,14 +66,27 @@ describe('Test Coordinator Module', function () {
 		it('should call the subscribed functions with the data broadcasted.', function () {
 			Coordinator.broadcast(eventX, dataObj);
 			
-			expect(moduleA.func.calledOnce).to.be.true;
+			expect(moduleA.func.called).to.be.true;
 			expect(moduleA.func.calledWithExactly(dataObj)).to.be.true;
-			expect(moduleB.func.calledOnce).to.be.true;
+			expect(moduleB.func.called).to.be.true;
 			expect(moduleB.func.calledWithExactly(dataObj)).to.be.true;
-			expect(moduleC.func.calledOnce).to.be.false;
+			expect(moduleC.func.called).to.be.false;
 
+			moduleA.func.reset();
+			moduleB.func.reset();
+			moduleC.func.reset();
+			dummyFunc.reset();	
+		});
+
+		it('should call the subscribed functions with no args if no data supplied', function () {
 			Coordinator.broadcast(eventX);
+			expect(moduleA.func.called).to.be.true;
 			expect(moduleA.func.lastCall.args.length).to.equal(0);
+
+			moduleA.func.reset();
+			moduleB.func.reset();
+			moduleC.func.reset();
+			dummyFunc.reset();
 		});
 
 		it('should call the subscribed functions on the registered scope.', function () {
@@ -106,3 +107,6 @@ describe('Test Coordinator Module', function () {
 	});
 
 });
+
+
+

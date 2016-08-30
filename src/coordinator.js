@@ -59,11 +59,19 @@
 		}
 	};
 
+	var unsubscribe = function (ev, fn) {
+
+	};
+
 	return {
 		_getSubscribers: _getSubscribers,
 		_setSubscribers: _setSubscribers,
 		subscribe: subscribe,
+		unsubscribe: unsubscribe,
 		broadcast: broadcast
 	};
 
 });
+
+
+
