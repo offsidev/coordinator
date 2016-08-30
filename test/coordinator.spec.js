@@ -18,8 +18,6 @@ describe('Test Coordinator Module', function () {
 			eventX = 'EventX',
 			eventY = 'EventY';
 
-		it('should fail if supplied incorrect arguments');
-
 		it('should add supplied function to list of subscribers for supplied event', function () {
 			
 			Coordinator.subscribe(eventX, moduleA.func, moduleA);
@@ -27,6 +25,18 @@ describe('Test Coordinator Module', function () {
 
 			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleA.func, scp: moduleA });
 			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleB.func, scp: moduleB });
+
+		});
+
+		it('should fail if supplied malformed arguments', function () {
+			// console.log( Coordinator.subscribe('string1', function () {}) );
+			expect(Coordinator.subscribe(function() {})).to.not.be.ok;
+			
+			expect(Coordinator.subscribe(2, function() {})).to.not.be.ok;
+			expect(Coordinator.subscribe('stringVal', 'stringVal')).to.to.not.be.ok;	
+			expect(Coordinator.subscribe('stringVal', function () {})).to.be.ok;
+
+			expect(Coordinator.subscribe('stringVal', function () {}, null, 10)).to.be.ok;			
 
 		});
 

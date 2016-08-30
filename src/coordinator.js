@@ -26,10 +26,21 @@
 	};
 
 	var subscribe = function (ev, fn, scope) {
+		var numberOfArguments = arguments.length;
+		
+		if ( numberOfArguments < 2 )
+			return false;
+		
+		else if ( numberOfArguments == 2 ) {
+			if ( typeof ev != 'string' || typeof fn != 'function' )
+				return false;
+			scope = null;
+		}
+
 		if ( !eventCenter[ev] )
 			eventCenter[ev] = [];
-
-		eventCenter[ev].push({
+		
+		return eventCenter[ev].push({
 			fn: fn,
 			scp: scope
 		});
