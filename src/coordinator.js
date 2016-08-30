@@ -59,8 +59,8 @@
 		}
 	};
 
-	var unsubscribe = function (ev, fn) {
-
+	var unsubscribe = function (ev, fn, scope) {
+		
 	};
 
 	return {
