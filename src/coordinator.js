@@ -17,11 +17,11 @@
 	'use strict';
 
 	/**
-	  * Event matrix contains the registered events and subscribed listeners
-      *
-      * @private
-      * @type {Object}
-      */
+	* Event matrix contains the registered events and subscribed listeners
+	*
+	* @private
+	* @type {Object}
+	*/
 	var eventCenter = {};
 
 	/**
@@ -35,12 +35,12 @@
 	};
 
 	/**
-	  * Subscribes a list of listeners to an event
-      *
-      * @param {String} ev is the event name
-      * @param {Array} subscribers
-      * @return {Array} list of subscribers
-      */
+	* Subscribes a list of listeners to an event
+	*
+	* @param {String} ev is the event name
+	* @param {Array} subscribers
+	* @return {Array} list of subscribers
+	*/
 	var _setSubscribers = function (ev, subscribers) {
 		if ( !subscribers instanceof Array )
 			return false;
@@ -48,33 +48,33 @@
 	};
 
 	/**
-	  * Checks whether the passed-in event is registered
-      *
-      * @param {String} ev is the event name
-      * @return {Boolean}
-      */
+	* Checks whether the passed-in event is registered
+	*
+	* @param {String} ev is the event name
+	* @return {Boolean}
+	*/
 	var _isEventRegistered = function (ev) {
 		return ( typeof eventCenter[ev] != 'undefined' ) ? true : false;
 	};
 
 	/**
-	  * Removes the passed-in event from the event matrix
-      *
-      * @param {String} ev is the event name
-      */
+	* Removes the passed-in event from the event matrix
+	*
+	* @param {String} ev is the event name
+	*/
 	var _deRegisterEvent = function (ev) {
 		if ( _isEventRegistered(ev) )
 			delete eventCenter[ev];
 	};
 
 	/**
-	  * Subscribes the passed-in function to the passed-in event
-      *
-      * @param {String} ev is the event name
-      * @param {Function} fn listener function
-      * @param {(Object|null)} scope is the scope context of the listener function
-      * @return {(Boolean|Number)}
-      */
+	* Subscribes the passed-in function to the passed-in event
+	*
+	* @param {String} ev is the event name
+	* @param {Function} fn listener function
+	* @param {(Object|null)} scope is the scope context of the listener function
+	* @return {(Boolean|Number)}
+	*/
 	var subscribe = function (ev, fn, scope) {
 		var numberOfArguments = arguments.length;	
 		if ( numberOfArguments < 2 )
