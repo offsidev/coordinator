@@ -2,7 +2,7 @@
   "name": "coordinator",
   "version": "1.0.0",
   "description": "Simple and intuitive module for managing events via the publish-subscribe model.",
-  "main": "index.js",
+  "main": "dist/coordinator.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
@@ -10,15 +10,18 @@
     "type": "git",
     "url": "git+https://github.com/offsidev/coordinator.git"
   },
-  "author": "Wissam",
-  "license": "ISC",
+  "author": "Wissam K <offsidev@gmail.com> (http://offsidev.com/)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/offsidev/coordinator/issues"
   },
   "homepage": "https://github.com/offsidev/coordinator#readme",
   "devDependencies": {
     "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^2.0.0",
     "mocha": "^3.0.2",
+    "pump": "^1.0.1",
     "sinon": "^1.17.5"
   }
 }
