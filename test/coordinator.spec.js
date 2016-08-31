@@ -19,9 +19,18 @@ describe('Test Coordinator Module', function () {
 		},
 		eventX = 'EventX',
 		eventY = 'EventY',
+		eventZ = 'EventZ',
 		dataObj = { data: 'value' };
 
 	describe('#subscribe', function () {
+
+		it('should return false if supplied malformed arguments.', function () {
+			expect(Coordinator.subscribe(function() {})).to.not.be.ok;
+			expect(Coordinator.subscribe(2, function() {})).to.not.be.ok;
+			expect(Coordinator.subscribe('stringVal', 'stringVal')).to.to.not.be.ok;	
+			expect(Coordinator.subscribe('stringVal', function () {})).to.be.ok;
+			expect(Coordinator.subscribe('stringVal', function () {}, null, 10)).to.be.ok;
+		});
 
 		it('should add supplied function to list of subscribers for supplied event.', function () {
 			
@@ -30,17 +39,6 @@ describe('Test Coordinator Module', function () {
 
 			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleA.func, scp: moduleA });
 			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleB.func, scp: moduleB });
-
-		});
-
-		it('should return false if supplied malformed arguments.', function () {
-			expect(Coordinator.subscribe(function() {})).to.not.be.ok;
-			
-			expect(Coordinator.subscribe(2, function() {})).to.not.be.ok;
-			expect(Coordinator.subscribe('stringVal', 'stringVal')).to.to.not.be.ok;	
-			expect(Coordinator.subscribe('stringVal', function () {})).to.be.ok;
-
-			expect(Coordinator.subscribe('stringVal', function () {}, null, 10)).to.be.ok;			
 
 		});
 
@@ -67,8 +65,8 @@ describe('Test Coordinator Module', function () {
 			moduleB.func.restore();
 			moduleC.func.restore();
 			dummyFunc.reset();
-			Coordinator._setSubscribers(eventX, []);
-			Coordinator._setSubscribers(eventY, []);
+			Coordinator._deRegisterEvent(eventX);
+			Coordinator._deRegisterEvent(eventY);
 		});
 
 		it('should call the subscribed functions with the data broadcasted.', function () {
@@ -97,6 +95,8 @@ describe('Test Coordinator Module', function () {
 			expect(dummyFunc.calledOn(null)).to.be.true;
 		});
 
+		it('should return false if event is not registered.');
+
 	});
 	
 	describe('#unsubscribe', function () {
@@ -108,23 +108,26 @@ describe('Test Coordinator Module', function () {
 				{ fn: moduleA.func, scp: moduleA },
 				{ fn: moduleB.func, scp: moduleB }
 			]);
-			Coordinator.unsubscribe(eventX, moduleA.func, moduleA);
 		});
 
 		afterEach(function () {
 			moduleA.func.restore();
 			moduleB.func.restore();
-			Coordinator._setSubscribers(eventX, [
-				{ fn: moduleA.func, scp: moduleA },
-				{ fn: moduleB.func, scp: moduleB }
-			]);
+			Coordinator._deRegisterEvent(eventX);
 		});
 
-		it('should return false if supplied malformed arguments.');
+		it('should return false if supplied malformed arguments.', function () {
+			expect(Coordinator.unsubscribe(function() {})).to.not.be.ok;		
+			expect(Coordinator.unsubscribe(2, function() {})).to.not.be.ok;
+			expect(Coordinator.unsubscribe('stringVal', 'stringVal')).to.to.not.be.ok;	
+			expect(Coordinator.unsubscribe('stringVal', function () {})).to.be.ok;
+			expect(Coordinator.unsubscribe('stringVal', function () {}, null, 10)).to.be.ok;
+		});
 
-		it('should return false if event not registered.');
-
-		it('should remove the unsubscribing function from the subscriber list of supplied event.');
+		it('should remove the unsubscribing function from the subscriber list of supplied event.', function () {
+			Coordinator.unsubscribe(eventX, moduleA.func, moduleA);
+			expect(Coordinator._getSubscribers(eventX)).to.not.deep.include({ fn: moduleA.func, scp: moduleA });
+		});
 
 		it('should not call unsubscribed function upon event broadcasting.');
 

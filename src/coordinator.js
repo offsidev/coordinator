@@ -28,19 +28,29 @@
 		eventCenter[ev] = subscribers;
 	};
 
+	var _isEventRegistered = function (ev) {
+		return ( typeof eventCenter[ev] != 'undefined' ) ? true : false;
+	};
+
+	var _deRegisterEvent = function (ev) {
+		if ( _isEventRegistered(ev) )
+			delete eventCenter[ev];
+	};
+
 	var subscribe = function (ev, fn, scope) {
 		var numberOfArguments = arguments.length;
 		
 		if ( numberOfArguments < 2 )
 			return false;
 		
-		else if ( numberOfArguments == 2 ) {
+		else {
 			if ( typeof ev != 'string' || typeof fn != 'function' )
 				return false;
-			scope = null;
+			if ( typeof scope == 'undefined' )
+				scope = null;
 		}
 
-		if ( !eventCenter[ev] )
+		if ( !_isEventRegistered(ev) )
 			eventCenter[ev] = [];
 
 		return eventCenter[ev].push({
@@ -60,15 +70,30 @@
 	};
 
 	var unsubscribe = function (ev, fn, scope) {
+		var numberOfArguments = arguments.length;
 		
+		if ( numberOfArguments < 2 )
+			return false;
+		
+		else {
+			if ( typeof ev != 'string' || typeof fn != 'function' )
+				return false;
+			if ( typeof scope == 'undefined' )
+				scope = null;
+		}
+
+		// logic for deleting
+
+		return true;
 	};
 
 	return {
-		_getSubscribers: _getSubscribers,
-		_setSubscribers: _setSubscribers,
 		subscribe: subscribe,
 		unsubscribe: unsubscribe,
-		broadcast: broadcast
+		broadcast: broadcast,
+		_getSubscribers: _getSubscribers,
+		_setSubscribers: _setSubscribers,
+		_deRegisterEvent: _deRegisterEvent,
 	};
 
 });
