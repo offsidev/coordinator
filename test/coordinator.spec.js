@@ -102,8 +102,8 @@ describe('Test Coordinator Module', function () {
 	describe('#unsubscribe', function () {
 
 		beforeEach(function () {
-			sinon.spy(moduleA, 'func');
-			sinon.spy(moduleB, 'func');
+			// sinon.spy(moduleA, 'func');
+			// sinon.spy(moduleB, 'func');
 			Coordinator._setSubscribers(eventX, [
 				{ fn: moduleA.func, scp: moduleA },
 				{ fn: moduleB.func, scp: moduleB }
@@ -111,8 +111,8 @@ describe('Test Coordinator Module', function () {
 		});
 
 		afterEach(function () {
-			moduleA.func.restore();
-			moduleB.func.restore();
+			// moduleA.func.restore();
+			// moduleB.func.restore();
 			Coordinator._deRegisterEvent(eventX);
 		});
 
@@ -127,6 +127,7 @@ describe('Test Coordinator Module', function () {
 		it('should remove the unsubscribing function from the subscriber list of supplied event.', function () {
 			Coordinator.unsubscribe(eventX, moduleA.func, moduleA);
 			expect(Coordinator._getSubscribers(eventX)).to.not.deep.include({ fn: moduleA.func, scp: moduleA });
+			expect(Coordinator._getSubscribers(eventX)).to.deep.include({ fn: moduleB.func, scp: moduleB });
 		});
 
 		it('should not call unsubscribed function upon event broadcasting.');

@@ -82,7 +82,21 @@
 				scope = null;
 		}
 
-		// logic for deleting
+		if ( _isEventRegistered(ev) ) {
+
+			var updatedSubscriberList = [],
+				subscriberList = _getSubscribers(ev),
+				subscriber;
+
+			for (var i = 0; i < subscriberList.length; i++) {
+				subscriber = subscriberList[i];
+				if ( subscriber['fn'] != fn || subscriber['scp'] != scope )
+					updatedSubscriberList.push(subscriber);
+			};
+
+			_setSubscribers(ev, updatedSubscriberList);
+
+		}
 
 		return true;
 	};
