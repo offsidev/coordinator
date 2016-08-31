@@ -38,11 +38,9 @@
 	};
 
 	var subscribe = function (ev, fn, scope) {
-		var numberOfArguments = arguments.length;
-		
+		var numberOfArguments = arguments.length;	
 		if ( numberOfArguments < 2 )
-			return false;
-		
+			return false;	
 		else {
 			if ( typeof ev != 'string' || typeof fn != 'function' )
 				return false;
@@ -60,6 +58,9 @@
 	};
 
 	var broadcast = function (ev, data) {
+		if ( !_isEventRegistered(ev) )
+			return false;
+
 		var subscribers = _getSubscribers(ev);
 		for ( var i = 0; i < subscribers.length; i++ ) {
 			if ( typeof data == 'undefined' )
@@ -67,14 +68,13 @@
 			else
 				subscribers[i]['fn'].apply(subscribers[i]['scp'], [data]);
 		}
+		return true;
 	};
 
 	var unsubscribe = function (ev, fn, scope) {
-		var numberOfArguments = arguments.length;
-		
+		var numberOfArguments = arguments.length;		
 		if ( numberOfArguments < 2 )
-			return false;
-		
+			return false;		
 		else {
 			if ( typeof ev != 'string' || typeof fn != 'function' )
 				return false;
@@ -83,7 +83,6 @@
 		}
 
 		if ( _isEventRegistered(ev) ) {
-
 			var updatedSubscriberList = [],
 				subscriberList = _getSubscribers(ev),
 				subscriber;
@@ -95,7 +94,6 @@
 			};
 
 			_setSubscribers(ev, updatedSubscriberList);
-
 		}
 
 		return true;
