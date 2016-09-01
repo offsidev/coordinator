@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+      <title>Offsidev Coordinator - In-browser Example</title>
+      <style>
+         html, body{
+            font-family: 'Tahoma';
+         }
+         h1,h2,h3{
+            padding: 0; margin: 0;
+         }
+         .app-container{
+            background-color: #E3E3E3;
+            padding: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #CCC;
+         }
+      </style>
+   </head>
+
+   <body>
+
+      <h1>DEMO</h1>
+
+      <div id="meal-picker" class="app-container">
+         <h3>Pick your combo</h3>
+         <select name="food">
+            <option value="sandwitch">sandwitch</option>
+            <option value="panini">panini</option>
+         </select>
+         <select name="drink">
+            <option value="coffee">coffee</option>
+            <option value="juice">juice</option>
+         </select>
+         <button type="submit">GO</button>
+      </div>
+
+      <div id="summary" class="app-container">
+         <h3>Summary</h3>
+         <div data-summary>List empty</div>
+      </div>
+
+      <div id="calculator" class="app-container">
+         <h3>Bill</h3>
+         <div>
+            <span>Total:</span>
+            <span data-total>0</span>
+         </div>
+      </div>
+      
+      <script src="../../dist/coordinator.js"></script>
+      <script src="index.js"></script>
+   </body>
+
+</html>
