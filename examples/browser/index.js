@@ -1,5 +1,12 @@
 var CHOICE_MADE = 'choice_made';
 
+var Menu = {
+   sandwitch: { price: 8, printerName: 'SANDWITCH' },
+   panini: { price: 7.5, printerName: 'PANINI' },
+   coffee: { price: 2, printerName: 'COFFEE' },
+   juice: { price: 3, printerName: 'JUICE' }
+};
+
 var MealPicker = {
    selection: {},
    cacheDOM: function () {
@@ -25,12 +32,6 @@ var MealPicker = {
 };
 
 var Calculator = {
-   menu: {
-      sandwitch: { price: 8 },
-      panini: { price: 7.5 },
-      coffee: { price: 2 },
-      juice: { price: 3 }
-   },
    cacheDOM: function () {
       this.container = document.getElementById('calculator');
       this.elTotal = this.container.querySelector('[data-total]');
@@ -38,7 +39,7 @@ var Calculator = {
    computeTotal: function (order) {
       var total = 0;
       for ( var i = 0; i < order.length; i++ ) {
-         total += this.menu[order[i]]['price'];
+         total += Menu[order[i]]['price'];
       }
       return total;
    },
@@ -51,12 +52,6 @@ var Calculator = {
 };
 
 var Printer = {
-   menu: {
-      sandwitch: { price: 8, printerName: 'SANDWITCH' },
-      panini: { price: 7.5, printerName: 'PANINI' },
-      coffee: { price: 2, printerName: 'COFFEE' },
-      juice: { price: 3, printerName: 'JUICE' }
-   },
    cacheDOM: function () {
       this.container = document.getElementById('summary');
       this.elSummary = this.container.querySelector('[data-summary]');
@@ -67,7 +62,7 @@ var Printer = {
    generateSummary: function (order) {
       var html = '=====================================<br />';
       for ( var i = 0; i < order.length; i++ ) {
-         html += '<li>' + this.menu[order[i]]['printerName'] + ' $' + this.menu[order[i]]['price'];
+         html += '<li>' + Menu[order[i]]['printerName'] + ' $' + Menu[order[i]]['price'];
       }
       html += '<br />=====================================';
       return html;
