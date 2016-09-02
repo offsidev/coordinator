@@ -10,9 +10,9 @@ Intuitive, dependency-free and lightweight module for managing events based on t
 * No dependencies.
 
 ## Kick-off
-Download the latest version from Github or via NPM.
+Download the latest version from Github or via npm.
 ```
-npm install remodal
+npm i event.coordinator
 ```
 Unless you are using a Javascript module loader like Browserify or RequireJS, you may
 drop the minified JS file located in the dist folder onto the body of your HTML page.
@@ -62,6 +62,10 @@ Coordinator.broadcast(eventName, data);
 
 ```
 #### unsubscribe
+<p>
+Unsubscribes the supplied function from the supplied
+event's subscriber list.
+</p>
 ```js
 /**
  * Unsubscribes the passed-in function from the passed-in event's list

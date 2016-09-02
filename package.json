@@ -1,5 +1,5 @@
 {
-  "name": "coordinator",
+  "name": "event.coordinator",
   "version": "1.0.0",
   "description": "Simple and intuitive module for managing events via the publish-subscribe model.",
   "main": "dist/coordinator.js",
