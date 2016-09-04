@@ -68,7 +68,7 @@ event's subscriber list.
 </p>
 ```js
 /**
- * Unsubscribes the passed-in function from the passed-in event's list
+ * Unsubscribes the passed-in function from the passed-in events list
  *
  * @param {String} eventName is the event name
  * @param {Function} fn callbackFunction function
@@ -77,6 +77,33 @@ event's subscriber list.
  */
 Coordinator.unsubscribe(eventName, callbackFunction, scope);
 ```
+## Example and Usage
+
+Coordinator implements the standard functionality of a publish-subscribe service.
+In [this article](http://offsidev.com/), I break down its usability in a real-life example.
+
+## Build
+Simple. Clone this repository to your workspace.
+```
+git clone https://github.com/offsidev/coordinator.git
+```
+Enter Coordinator's directory, then run:
+```
+gulp minify
+```
+Note that you need Gulp installed both globally and as a project dependency.
+A minified version will be generated in the dist/ directory.
+## Running Unit Tests
+<p>Make sure you have the required dependencies installed to your project via:</p>
+```
+npm install
+```
+Then run:
+```
+npm test
+```
+
+
 
 
 
