@@ -23,15 +23,13 @@ drop the minified JS file located in the dist folder onto the body of your HTML 
 ## API
 
 #### subscribe
-<p>
+
 Subscribes the supplied function to the supplied event. The scope refers to the 
 scope within which the function is called upon event broadcast. The scope defaults
 to null value if not specified.
-</p>
-</p>
+
 When successful, it returns the number of callbacks subscribed to the event; returns
 false if the arguments are malformed.
-</p>
 
 ```js
 /**
@@ -46,9 +44,7 @@ Coordinator.subscribe(eventName, callbackFunction, scope);
 ```
 
 #### broadcast
-<p>
 Accounces that the supplied event has been dispatched, and fires the subscribed functions.
-</p>
 
 ```js
 /**
@@ -61,11 +57,12 @@ Accounces that the supplied event has been dispatched, and fires the subscribed 
 Coordinator.broadcast(eventName, data);
 
 ```
+
 #### unsubscribe
-<p>
+
 Unsubscribes the supplied function from the supplied
 event's subscriber list.
-</p>
+
 ```js
 /**
  * Unsubscribes the passed-in function from the passed-in events list
@@ -97,7 +94,7 @@ Note that you need Gulp installed both globally and as a project dependency.
 A minified version will be generated in the dist/ directory.
 
 ## Running Unit Tests
-<p>Make sure you have the required dependencies installed to your project via:</p>
+Make sure you have the required dependencies installed to your project via:
 
 ```
 npm install
