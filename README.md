@@ -76,7 +76,9 @@ event's subscriber list.
  * @return {Boolean}
  */
 Coordinator.unsubscribe(eventName, callbackFunction, scope);
+
 ```
+
 ## Example and Usage
 
 Coordinator implements the standard functionality of a publish-subscribe service.
@@ -93,12 +95,16 @@ gulp minify
 ```
 Note that you need Gulp installed both globally and as a project dependency.
 A minified version will be generated in the dist/ directory.
+
 ## Running Unit Tests
 <p>Make sure you have the required dependencies installed to your project via:</p>
+
 ```
 npm install
 ```
+
 Then run:
+
 ```
 npm test
 ```
