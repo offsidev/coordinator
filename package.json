@@ -1,6 +1,6 @@
 {
   "name": "event.coordinator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple and intuitive module for managing events via the publish-subscribe model.",
   "main": "dist/coordinator.js",
   "scripts": {
