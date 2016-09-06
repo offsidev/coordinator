@@ -79,7 +79,8 @@ Coordinator.unsubscribe(eventName, callbackFunction, scope);
 ## Example and Usage
 
 Coordinator implements the standard functionality of a publish-subscribe service.
-In [this article](http://offsidev.com/), I break down its usability in a real-life example.
+An in-browser example lives in the examples folder.
+In [this article](http://offsidev.com/publish-subscribe-using-coordinator-js), I break down its usability in a real-life example.
 
 ## Build
 Simple. Clone this repository to your workspace.

@@ -60,11 +60,11 @@ var Printer = {
       this.cacheDOM();
    },
    generateSummary: function (order) {
-      var html = '=====================================<br />';
+      var html = '=====<br />';
       for ( var i = 0; i < order.length; i++ ) {
          html += '<li>' + Menu[order[i]]['printerName'] + ' $' + Menu[order[i]]['price'];
       }
-      html += '<br />=====================================';
+      html += '<br />=====';
       return html;
    },
    printSummary: function (order) {
