@@ -77,7 +77,12 @@ Calculator.init();
 Printer.init();
 
 Coordinator.subscribe(CHOICE_MADE, Calculator.printTotal, Calculator);
+
 Coordinator.subscribe(CHOICE_MADE, Printer.printSummary, Printer);
+
+Coordinator.subscribe(CHOICE_MADE, function (data) {
+   console.log('Data broadcasted: ', data);
+}, null);
 
 
 

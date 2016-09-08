@@ -1,7 +1,21 @@
 {
   "name": "event.coordinator",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Simple and intuitive module for managing events via the publish-subscribe model.",
+  "keywords": [
+    "pubsub",
+    "package",
+    "publish",
+    "subscribe",
+    "pattern",
+    "publish-subscribe",
+    "browser",
+    "observer",
+    "mediator",
+    "listener",
+    "emit",
+    "broadcast"
+  ],
   "main": "dist/coordinator.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
